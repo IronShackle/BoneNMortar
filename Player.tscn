@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://coywexmd4lfyr"]
+
+[ext_resource type="PackedScene" uid="uid://b52oqqpc2t3vc" path="res://MobBase.tscn" id="1_kpjcp"]
+[ext_resource type="Script" uid="uid://dyc75lqjjm73s" path="res://Systems/Player/player_controller.gd" id="1_xhfnw"]
+[ext_resource type="PackedScene" uid="uid://dmav42m3a0vke" path="res://shadow_flame.tscn" id="4_cxr5p"]
+
+[node name="MobBase" groups=["player"] instance=ExtResource("1_kpjcp")]
+script = ExtResource("1_xhfnw")
+
+[node name="Polygon2D" type="Polygon2D" parent="." index="3"]
+position = Vector2(-16, -16)
+polygon = PackedVector2Array(0, 0, 32, 0, 32, 32, 0, 32)
+
+[node name="Camera2D" type="Camera2D" parent="Polygon2D" index="0"]
+position = Vector2(16, 16)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+
+[node name="Shadow Flame" parent="." index="4" instance=ExtResource("4_cxr5p")]

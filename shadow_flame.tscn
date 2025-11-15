@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmav42m3a0vke"]
+
+[ext_resource type="Script" uid="uid://d0x17wyjf67wd" path="res://shadow_flame.gd" id="1_rqhsx"]
+[ext_resource type="PackedScene" uid="uid://c5bx1lrrw7ofb" path="res://Projectile_Base.tscn" id="2_sy83g"]
+
+[node name="Shadow Flame" type="Node"]
+script = ExtResource("1_rqhsx")
+projectile_scene = ExtResource("2_sy83g")
+spell_name = "Shadow Bolt"
+movement_modifier = 0.7
+metadata/_custom_type_script = "uid://dhnv65d0xoc5a"

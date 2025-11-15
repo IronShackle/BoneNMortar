@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5bx1lrrw7ofb"]
+
+[ext_resource type="Script" uid="uid://caiugvlu8ulxq" path="res://projectile.gd" id="1_if21u"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8to4u"]
+
+[node name="ProjectileBase" type="Area2D"]
+script = ExtResource("1_if21u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(10, 10)
+texture = SubResource("PlaceholderTexture2D_8to4u")

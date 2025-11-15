@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://sxtr0lvlbdeq"]
+
+[ext_resource type="PackedScene" uid="uid://b52oqqpc2t3vc" path="res://MobBase.tscn" id="1_tl2ma"]
+[ext_resource type="Script" uid="uid://k8err0jv3cvy" path="res://Systems/AI/ai_controller.gd" id="2_6a81g"]
+[ext_resource type="Script" uid="uid://dnur5nxixo6tt" path="res://enemy.gd" id="2_eujlb"]
+[ext_resource type="Script" uid="uid://bbiwa645ky3t1" path="res://Systems/AI/Behaviors/chase_player_behavior.gd" id="3_eujlb"]
+
+[sub_resource type="Resource" id="Resource_6a81g"]
+script = ExtResource("3_eujlb")
+metadata/_custom_type_script = "uid://bbiwa645ky3t1"
+
+[node name="MobBase" instance=ExtResource("1_tl2ma")]
+script = ExtResource("2_eujlb")
+
+[node name="AIController" type="Node" parent="." index="3"]
+script = ExtResource("2_6a81g")
+ai_behavior = SubResource("Resource_6a81g")
+
+[node name="Polygon2D" type="Polygon2D" parent="." index="4"]
+scale = Vector2(1.6875001, 2.0555556)
+color = Color(0.7076505, 0.30435848, 0.29918882, 1)
+polygon = PackedVector2Array(-4, 2, 0, -4, 4, 2)
