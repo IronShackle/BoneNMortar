@@ -27,6 +27,7 @@ func _ready() -> void:
 
 	# Connect to detect when we hit hurtboxes
 	area_entered.connect(_on_area_entered)
+	print("[Hitbox] Ready! Connected to area_entered signal. Team: ", team, " Monitoring: ", monitoring, " Monitorable: ", monitorable)
 
 
 func can_hit(entity: Node) -> bool:
@@ -42,24 +43,32 @@ func register_hit(entity: Node) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	## Detect when this Hitbox enters a Hurtbox
+	print("[Hitbox] area_entered triggered, area type: ", area.get_class())
+
 	if not area is Hurtbox:
+		print("[Hitbox] Not a Hurtbox, ignoring")
 		return
 
 	var hurtbox = area as Hurtbox
+	print("[Hitbox] Detected Hurtbox! My team: ", team, " Hurtbox team: ", hurtbox.team)
 
 	# Don't hit same team
 	if hurtbox.team == team:
+		print("[Hitbox] Same team, ignoring")
 		return
 
 	# Get the owner entity (parent of the hurtbox)
 	var owner_entity = hurtbox.get_parent()
+	print("[Hitbox] Owner entity: ", owner_entity.name if owner_entity else "null")
 
 	# Check if we can hit this entity (for hit_once logic)
 	if not can_hit(owner_entity):
+		print("[Hitbox] Already hit this entity, ignoring")
 		return
 
 	# Register the hit
 	register_hit(owner_entity)
+	print("[Hitbox] Hit registered, emitting hit_detected signal")
 
 	# Emit signal so projectiles/other systems can respond
 	hit_detected.emit(hurtbox, owner_entity)
