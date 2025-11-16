@@ -12,11 +12,11 @@ metadata/_custom_type_script = "uid://bbiwa645ky3t1"
 [node name="MobBase" instance=ExtResource("1_tl2ma")]
 script = ExtResource("2_eujlb")
 
-[node name="AIController" type="Node" parent="." index="3"]
+[node name="AIController" type="Node" parent="." index="4"]
 script = ExtResource("2_6a81g")
 ai_behavior = SubResource("Resource_6a81g")
 
-[node name="Polygon2D" type="Polygon2D" parent="." index="4"]
+[node name="Polygon2D" type="Polygon2D" parent="." index="5"]
 scale = Vector2(1.6875001, 2.0555556)
 color = Color(0.7076505, 0.30435848, 0.29918882, 1)
 polygon = PackedVector2Array(-4, 2, 0, -4, 4, 2)

@@ -285,11 +285,6 @@ tile_set = SubResource("TileSet_j5wjh")
 dodge_distance = 25.0
 dodge_duration = 0.2
 
-[node name="Camera2D" parent="Player/Polygon2D" index="0"]
-position_smoothing_enabled = false
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-
 [node name="Shadow Flame" parent="Player" index="4"]
 movement_modifier = 2.0
 
@@ -299,7 +294,7 @@ position = Vector2(118, -57)
 [node name="MovementComponent" parent="MobBase" index="2"]
 move_speed = 5.0
 
-[node name="AIController" parent="MobBase" index="3"]
+[node name="AIController" parent="MobBase" index="4"]
 ai_behavior = SubResource("Resource_7jktm")
 
 [editable path="Player"]
