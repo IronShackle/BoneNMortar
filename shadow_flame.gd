@@ -5,6 +5,11 @@ extends SpellBase
 
 
 @export var projectile_scene: PackedScene
+@export var projectile_damage: float = 25.0
+@export var projectile_speed: float = 400.0
+@export var projectile_lifetime: float = 3.0
+@export var projectile_radius: float = 8.0
+
 
 
 func _init() -> void:
@@ -32,15 +37,34 @@ func execute() -> void:
 	# Create projectile instance
 	var projectile = projectile_scene.instantiate()
 	
-	# Configure projectile
-	projectile.speed = 400.0
-	projectile.lifetime = 3.0
-	projectile.damage = 25.0
+	# Configure projectile movement
+	projectile.speed = projectile_speed
+	projectile.lifetime = projectile_lifetime
 	projectile.direction = aim_direction
 	projectile.global_position = spawn_pos
-	projectile.set_collision_radius(8.0)
+	
+	# Get hitbox
+	var hitbox = projectile.get_node("Hitbox") as Area2D
+	
+	if hitbox == null:
+		push_error("Projectile is missing Hitbox child node!")
+		projectile.queue_free()
+		return
+	
+	# Configure hitbox data
+	hitbox.team = "player"
+	hitbox.damage = projectile_damage
+	hitbox.hit_once = true
+	hitbox.set_circle_shape(projectile_radius)
+	
+
 	
 	# Spawn it into the world
 	caster.get_tree().current_scene.add_child(projectile)
 	
 	print("Shadow Flame projectile spawned!")
+
+
+func _on_hitbox_registered_hit(_entity: Node, projectile: Node) -> void:
+	# Destroy projectile when it hits something
+	projectile.queue_free()

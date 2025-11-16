@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://coywexmd4lfyr"]
+[gd_scene load_steps=6 format=3 uid="uid://coywexmd4lfyr"]
 
 [ext_resource type="PackedScene" uid="uid://b52oqqpc2t3vc" path="res://MobBase.tscn" id="1_kpjcp"]
 [ext_resource type="Script" uid="uid://dyc75lqjjm73s" path="res://Systems/Player/player_controller.gd" id="1_xhfnw"]
 [ext_resource type="PackedScene" uid="uid://dmav42m3a0vke" path="res://shadow_flame.tscn" id="4_cxr5p"]
+[ext_resource type="Script" uid="uid://cutcl24p4stoe" path="res://Systems/Combat/hurtbox.gd" id="4_e80uo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cxr5p"]
+radius = 15.0
 
 [node name="MobBase" groups=["player"] instance=ExtResource("1_kpjcp")]
 script = ExtResource("1_xhfnw")
@@ -16,3 +20,11 @@ polygon = PackedVector2Array(0, 0, 32, 0, 32, 32, 0, 32)
 [node name="Camera2D" type="Camera2D" parent="." index="6"]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." index="7"]
+script = ExtResource("4_e80uo")
+team = "player"
+metadata/_custom_type_script = "uid://cutcl24p4stoe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CircleShape2D_cxr5p")

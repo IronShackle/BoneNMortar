@@ -7,6 +7,8 @@ class_name MobBase
 @onready var movement_machine: StateMachine = $MovementMachine
 @onready var action_machine: StateMachine = $ActionMachine
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var hurtbox: Hurtbox = $Hurtbox
+
 
 
 func _ready() -> void:
@@ -42,10 +44,26 @@ func _setup_action_machine() -> void:
 
 
 func _setup_mob_specific() -> void:
+	# Connect to hurtbox
+	if hurtbox:
+		hurtbox.hit_by_hitbox.connect(_on_hit_by_hitbox)
+	
 	# Connect health component signals
 	if health_component:
 		health_component.died.connect(_on_death)
 
+## Virtual - handle being hit
+func _on_hit_by_hitbox(hitbox: Hitbox) -> void:
+	# Check if hitbox can hit us
+	if not hitbox.can_hit(self):
+		return
+	
+	# Apply damage
+	if health_component:
+		health_component.lose_life(hitbox.damage, hitbox.get_parent())
+	
+	# Register that this hitbox hit us
+	hitbox.register_hit(self)
 
 # Public API
 func get_movement_component() -> MovementComponent:

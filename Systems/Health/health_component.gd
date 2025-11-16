@@ -67,12 +67,12 @@ func gain_life(amount: float) -> void:
 
 
 func apply_dot(damage_per_tick: float, duration: float, source: Node = null, dot_type: String = "generic") -> void:
-    var dot = DotEffect.new()
-    dot.damage_per_tick = damage_per_tick
-    dot.remaining_duration = duration
-    dot.source = source
-    dot.type = dot_type
-    active_dots.append(dot)
+	var dot = DotEffect.new()
+	dot.damage_per_tick = damage_per_tick
+	dot.remaining_duration = duration
+	dot.source = source
+	dot.type = dot_type
+	active_dots.append(dot)
 
 
 func clear_dots_from_source(source: Node) -> void:
