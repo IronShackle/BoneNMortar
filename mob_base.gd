@@ -6,6 +6,7 @@ class_name MobBase
 @onready var movement_component: MovementComponent = $MovementComponent
 @onready var movement_machine: StateMachine = $MovementMachine
 @onready var action_machine: StateMachine = $ActionMachine
+@onready var health_component: HealthComponent = $HealthComponent
 
 
 func _ready() -> void:
@@ -41,7 +42,9 @@ func _setup_action_machine() -> void:
 
 
 func _setup_mob_specific() -> void:
-	pass
+	# Connect health component signals
+	if health_component:
+		health_component.died.connect(_on_death)
 
 
 # Public API
@@ -55,3 +58,13 @@ func get_movement_machine() -> StateMachine:
 
 func get_action_machine() -> StateMachine:
 	return action_machine
+
+
+func get_health_component() -> HealthComponent:
+	return health_component
+
+
+# Virtual method called when entity dies
+# Subclasses can override for custom death behavior
+func _on_death() -> void:
+	queue_free()

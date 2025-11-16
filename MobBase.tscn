@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dpt4b527th336" path="res://mob_base.gd" id="1_3r84c"]
 [ext_resource type="Script" uid="uid://dra02w4h3yisu" path="res://Systems/state_machine/state_machine.gd" id="3_kne1u"]
 [ext_resource type="Script" uid="uid://d13naja2rmnyr" path="res://Systems/Movement/movement_component.gd" id="4_e80uo"]
+[ext_resource type="Script" path="res://Systems/Health/health_component.gd" id="5_health"]
 
 [sub_resource type="Curve" id="Curve_cxr5p"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.17391306, 1), 0.0, 0.0, 0, 0]
@@ -34,3 +35,6 @@ acceleration_curve = SubResource("Curve_cxr5p")
 deceleration_curve = SubResource("Curve_tdg3f")
 dodge_curve = SubResource("Curve_dtqjt")
 metadata/_custom_type_script = "uid://d13naja2rmnyr"
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5_health")
