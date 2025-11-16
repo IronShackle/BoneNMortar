@@ -4,6 +4,8 @@ extends Area2D
 
 ## Carries damage data and collision shape. Hurtbox detects entry and handles response.
 
+signal hit_detected(hurtbox: Hurtbox, owner_entity: Node)
+
 @export var team: String = "neutral"
 @export var damage: float = 10.0
 @export var damage_type: String = "physical"
@@ -23,6 +25,9 @@ func _ready() -> void:
 	collision_shape = $CollisionShape2D
 	_update_shape_size()
 
+	# Connect to detect when we hit hurtboxes
+	area_entered.connect(_on_area_entered)
+
 
 func can_hit(entity: Node) -> bool:
 	if not hit_once:
@@ -33,6 +38,31 @@ func can_hit(entity: Node) -> bool:
 func register_hit(entity: Node) -> void:
 	if hit_once and entity not in entities_hit:
 		entities_hit.append(entity)
+
+
+func _on_area_entered(area: Area2D) -> void:
+	## Detect when this Hitbox enters a Hurtbox
+	if not area is Hurtbox:
+		return
+
+	var hurtbox = area as Hurtbox
+
+	# Don't hit same team
+	if hurtbox.team == team:
+		return
+
+	# Get the owner entity (parent of the hurtbox)
+	var owner_entity = hurtbox.get_parent()
+
+	# Check if we can hit this entity (for hit_once logic)
+	if not can_hit(owner_entity):
+		return
+
+	# Register the hit
+	register_hit(owner_entity)
+
+	# Emit signal so projectiles/other systems can respond
+	hit_detected.emit(hurtbox, owner_entity)
 
 
 func _get_collision_shape() -> CollisionShape2D:

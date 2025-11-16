@@ -9,9 +9,28 @@ var lifetime: float = 5.0
 var damage: float = 10.0
 var direction: Vector2 = Vector2.RIGHT
 
+## Pierce mechanics
+@export var max_hits: int = 1  ## Maximum entities this projectile can hit (0 = infinite)
+@export var pierce_enabled: bool = false  ## Convenience flag to enable piercing
+
 # Internal tracking
 var time_alive: float = 0.0
+var hits_remaining: int = 1  ## Runtime counter for remaining hits
+var entities_hit: Array[Node] = []  ## Track entities we've already hit
 
+
+func _ready() -> void:
+	# Initialize pierce system
+	if pierce_enabled and max_hits == 1:
+		max_hits = 999999  # Effectively infinite if pierce enabled but no max set
+
+	hits_remaining = max_hits if max_hits > 0 else 999999
+
+	# Connect to Hitbox for hit detection
+	if has_node("Hitbox"):
+		var hitbox = get_node("Hitbox") as Hitbox
+		if hitbox:
+			hitbox.hit_detected.connect(_on_hitbox_hit_detected)
 
 
 func _physics_process(delta: float) -> void:
@@ -32,9 +51,20 @@ func set_collision_radius(radius: float) -> void:
 		$Hitbox/CollisionShape2D.shape = shape
 
 
-func _on_hit_hurtbox(hurtbox: Hurtbox) -> void:
-	# Deal damage to whatever has the hurtbox
-	hurtbox.damage(damage)
-	
-	# Destroy projectile on hit
-	queue_free()
+func _on_hitbox_hit_detected(hurtbox: Hurtbox, owner_entity: Node) -> void:
+	## Called when our Hitbox detects a Hurtbox collision
+
+	# Prevent hitting the same entity twice
+	if owner_entity in entities_hit:
+		return
+
+	# Register this hit
+	entities_hit.append(owner_entity)
+
+	# Decrement remaining hits
+	if max_hits > 0:  # Only decrement if not infinite pierce
+		hits_remaining -= 1
+
+	# Despawn if we've exhausted our hits
+	if hits_remaining <= 0:
+		queue_free()
