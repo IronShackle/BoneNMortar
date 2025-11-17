@@ -43,15 +43,7 @@ func _on_area_entered(area: Area2D) -> void:
 	var owner_entity = hurtbox.get_parent()
 	print("[Hitbox] Owner entity: ", owner_entity.name if owner_entity else "null")
 
-	# Check if we can hit this entity (for hit_once logic)
-	if not can_hit(owner_entity):
-		print("[Hitbox] Already hit this entity, ignoring")
-		return
-
 	hit_detected.emit(hurtbox, owner_entity)
-	
-	# Register the hit
-	register_hit(owner_entity)
 	print("[Hitbox] Hit registered, emitting hit_detected signal")
 
 	# Emit signal so projectiles/other systems can respond

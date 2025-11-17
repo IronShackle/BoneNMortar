@@ -54,16 +54,10 @@ func _setup_mob_specific() -> void:
 
 ## Virtual - handle being hit
 func _on_hit_by_hitbox(hitbox: Hitbox) -> void:
-	# Check if hitbox can hit us
-	if not hitbox.can_hit(self):
-		return
-	
 	# Apply damage
 	if health_component:
 		health_component.lose_life(hitbox.damage, hitbox.get_parent())
-	
-	# Register that this hitbox hit us
-	hitbox.register_hit(self)
+
 
 # Public API
 func get_movement_component() -> MovementComponent:

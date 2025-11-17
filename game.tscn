@@ -281,10 +281,17 @@ dodge_distance = 25.0
 dodge_duration = 0.2
 
 [node name="Shadow Flame" parent="Player" index="4"]
+projectile_max_hits = 2
 movement_modifier = 2.0
 
 [node name="MobBase" parent="." instance=ExtResource("3_feb5d")]
 position = Vector2(178, -83)
+
+[node name="MobBase2" parent="." instance=ExtResource("3_feb5d")]
+position = Vector2(183, -47)
+
+[node name="MobBase3" parent="." instance=ExtResource("3_feb5d")]
+position = Vector2(129, -50)
 
 [editable path="Player"]
 [editable path="MobBase"]
