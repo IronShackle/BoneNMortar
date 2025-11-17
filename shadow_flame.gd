@@ -24,19 +24,19 @@ func execute() -> void:
 	if caster == null:
 		push_error("Shadow Flame executed without caster!")
 		return
-	
+
 	if projectile_scene == null:
 		push_error("Shadow Flame has no projectile scene assigned!")
 		return
-	
+
 	# Get aim direction
 	var mouse_pos = caster.get_global_mouse_position()
 	var spawn_pos = caster.global_position
 	var aim_direction = (mouse_pos - spawn_pos).normalized()
-	
+
 	# Create projectile instance
 	var projectile = projectile_scene.instantiate()
-	
+
 	# Configure projectile movement
 	projectile.speed = projectile_speed
 	projectile.lifetime = projectile_lifetime
@@ -47,27 +47,17 @@ func execute() -> void:
 	projectile.max_hits = projectile_max_hits
 	
 	# Get hitbox
-	var hitbox = projectile.get_node("Hitbox") as Area2D
-	
+	var hitbox = projectile.get_node("Hitbox") as Hitbox
+
 	if hitbox == null:
 		push_error("Projectile is missing Hitbox child node!")
 		projectile.queue_free()
 		return
-	
+
 	# Configure hitbox data
 	hitbox.team = "player"
 	hitbox.damage = projectile_damage
-	hitbox.hit_once = true
 	hitbox.set_circle_shape(projectile_radius)
-	
 
-	
 	# Spawn it into the world
 	caster.get_tree().current_scene.add_child(projectile)
-	
-	print("Shadow Flame projectile spawned!")
-
-
-func _on_hitbox_registered_hit(_entity: Node, projectile: Node) -> void:
-	# Destroy projectile when it hits something
-	projectile.queue_free()

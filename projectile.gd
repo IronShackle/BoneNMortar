@@ -25,18 +25,16 @@ func _ready() -> void:
 		max_hits = 999999  # Effectively infinite if pierce enabled but no max set
 
 	hits_remaining = max_hits if max_hits > 0 else 999999
-	print("[Projectile] Ready! max_hits: ", max_hits, " hits_remaining: ", hits_remaining)
 
 	# Connect to Hitbox for hit detection
 	if has_node("Hitbox"):
 		var hitbox = get_node("Hitbox") as Hitbox
 		if hitbox:
 			hitbox.hit_detected.connect(_on_hitbox_hit_detected)
-			print("[Projectile] Connected to Hitbox hit_detected signal")
 		else:
-			print("[Projectile] ERROR: Hitbox node exists but failed to cast to Hitbox type!")
+			push_error("Projectile: Hitbox node exists but failed to cast to Hitbox type!")
 	else:
-		print("[Projectile] ERROR: No Hitbox node found!")
+		push_error("Projectile: No Hitbox child node found!")
 
 
 func _physics_process(delta: float) -> void:
@@ -63,21 +61,15 @@ func _on_hitbox_hit_detected(_hurtbox: Hurtbox, owner_entity: Node) -> void:
 
 	# Prevent hitting the same entity twice
 	if owner_entity in entities_hit:
-		print("[Projectile] Already hit this entity, ignoring")
 		return
 
 	# Register this hit
 	entities_hit.append(owner_entity)
-	print("[Projectile] Registered hit on ", owner_entity.name)
 
 	# Decrement remaining hits
 	if max_hits > 0:  # Only decrement if not infinite pierce
 		hits_remaining -= 1
-		print("[Projectile] Decremented hits_remaining to ", hits_remaining)
 
 	# Despawn if we've exhausted our hits
 	if hits_remaining <= 0:
-		print("[Projectile] Hits exhausted, despawning")
 		queue_free()
-	else:
-		print("[Projectile] Continuing with ", hits_remaining, " hits remaining")
