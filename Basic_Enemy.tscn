@@ -11,7 +11,7 @@ script = ExtResource("3_eujlb")
 metadata/_custom_type_script = "uid://bbiwa645ky3t1"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iqqn0"]
-radius = 8.246211
+radius = 12.0
 
 [node name="MobBase" instance=ExtResource("1_tl2ma")]
 script = ExtResource("2_eujlb")

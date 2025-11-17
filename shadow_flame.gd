@@ -9,7 +9,7 @@ extends SpellBase
 @export var projectile_speed: float = 400.0
 @export var projectile_lifetime: float = 3.0
 @export var projectile_radius: float = 8.0
-
+@export var projectile_max_hits: int = 1
 
 
 func _init() -> void:
@@ -42,6 +42,9 @@ func execute() -> void:
 	projectile.lifetime = projectile_lifetime
 	projectile.direction = aim_direction
 	projectile.global_position = spawn_pos
+
+	# Configure projectile max hits
+	projectile.max_hits = projectile_max_hits
 	
 	# Get hitbox
 	var hitbox = projectile.get_node("Hitbox") as Area2D

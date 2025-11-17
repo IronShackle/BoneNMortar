@@ -66,12 +66,13 @@ func _on_area_entered(area: Area2D) -> void:
 		print("[Hitbox] Already hit this entity, ignoring")
 		return
 
+	hit_detected.emit(hurtbox, owner_entity)
+	
 	# Register the hit
 	register_hit(owner_entity)
 	print("[Hitbox] Hit registered, emitting hit_detected signal")
 
 	# Emit signal so projectiles/other systems can respond
-	hit_detected.emit(hurtbox, owner_entity)
 
 
 func _get_collision_shape() -> CollisionShape2D:

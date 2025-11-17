@@ -57,9 +57,9 @@ func set_collision_radius(radius: float) -> void:
 		$Hitbox/CollisionShape2D.shape = shape
 
 
-func _on_hitbox_hit_detected(hurtbox: Hurtbox, owner_entity: Node) -> void:
+func _on_hitbox_hit_detected(_hurtbox: Hurtbox, owner_entity: Node) -> void:
 	## Called when our Hitbox detects a Hurtbox collision
-	print("[Projectile] _on_hitbox_hit_detected called! Owner: ", owner_entity.name if owner_entity else "null")
+	print("[Projectile] _on_hitbox_hit_detected called! Owner: ", owner_entity.name)
 
 	# Prevent hitting the same entity twice
 	if owner_entity in entities_hit:

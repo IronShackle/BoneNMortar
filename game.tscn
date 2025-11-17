@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=4 uid="uid://conp3ilalt5qc"]
+[gd_scene load_steps=6 format=4 uid="uid://conp3ilalt5qc"]
 
 [ext_resource type="PackedScene" uid="uid://coywexmd4lfyr" path="res://Player.tscn" id="2_e2o6t"]
 [ext_resource type="Texture2D" uid="uid://b8dexmhm3bout" path="res://Game Dev Assets/Pixel Art Top Down - Basic v1.2.2/Texture/TX Tileset Grass.png" id="2_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://sxtr0lvlbdeq" path="res://Basic_Enemy.tscn" id="3_feb5d"]
-[ext_resource type="Script" uid="uid://bbiwa645ky3t1" path="res://Systems/AI/Behaviors/chase_player_behavior.gd" id="4_fc0e3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eow3j"]
 texture = ExtResource("2_fc0e3")
@@ -269,10 +268,6 @@ resource_local_to_scene = true
 tile_layout = 5
 sources/0 = SubResource("TileSetAtlasSource_eow3j")
 
-[sub_resource type="Resource" id="Resource_7jktm"]
-script = ExtResource("4_fc0e3")
-metadata/_custom_type_script = "uid://bbiwa645ky3t1"
-
 [node name="Game" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -289,13 +284,7 @@ dodge_duration = 0.2
 movement_modifier = 2.0
 
 [node name="MobBase" parent="." instance=ExtResource("3_feb5d")]
-position = Vector2(118, -57)
-
-[node name="MovementComponent" parent="MobBase" index="2"]
-move_speed = 5.0
-
-[node name="AIController" parent="MobBase" index="4"]
-ai_behavior = SubResource("Resource_7jktm")
+position = Vector2(178, -83)
 
 [editable path="Player"]
 [editable path="MobBase"]
