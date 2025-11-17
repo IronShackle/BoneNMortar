@@ -11,6 +11,9 @@ radius = 15.0
 [node name="MobBase" groups=["player"] instance=ExtResource("1_kpjcp")]
 script = ExtResource("1_xhfnw")
 
+[node name="MovementComponent" parent="." index="2"]
+move_speed = 200.0
+
 [node name="Shadow Flame" parent="." index="4" instance=ExtResource("4_cxr5p")]
 
 [node name="Polygon2D" type="Polygon2D" parent="." index="5"]
