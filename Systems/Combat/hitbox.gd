@@ -2,22 +2,20 @@
 class_name Hitbox
 extends Area2D
 
-## Carries damage data and collision shape. Hurtbox detects entry and handles response.
+## Simple collision detector that emits signals when hitting Hurtboxes.
+## Owner is responsible for tracking hits and implementing hit logic.
 
 signal hit_detected(hurtbox: Hurtbox, owner_entity: Node)
 
 @export var team: String = "neutral"
 @export var damage: float = 10.0
 @export var damage_type: String = "physical"
-@export var hit_once: bool = true  # Should this hitbox only damage each entity once?
 
-@export_group("Shape Properties") 
+@export_group("Shape Properties")
 @export var base_radius: float = 16.0
 @export var base_size: Vector2 = Vector2(32, 32)
 
 var size_multiplier: float = 1.0
-var entities_hit: Array[Node] = []  # Track what we've hit (for hit_once logic)
-
 var collision_shape: CollisionShape2D
 
 
@@ -27,50 +25,24 @@ func _ready() -> void:
 
 	# Connect to detect when we hit hurtboxes
 	area_entered.connect(_on_area_entered)
-	print("[Hitbox] Ready! Connected to area_entered signal. Team: ", team, " Monitoring: ", monitoring, " Monitorable: ", monitorable)
-
-
-func can_hit(entity: Node) -> bool:
-	if not hit_once:
-		return true
-	return entity not in entities_hit
-
-
-func register_hit(entity: Node) -> void:
-	if hit_once and entity not in entities_hit:
-		entities_hit.append(entity)
 
 
 func _on_area_entered(area: Area2D) -> void:
-	## Detect when this Hitbox enters a Hurtbox
-	print("[Hitbox] area_entered triggered, area type: ", area.get_class())
-
+	## Detect when this Hitbox enters a Hurtbox and emit signal
+	## Owner is responsible for filtering/tracking hits
 	if not area is Hurtbox:
-		print("[Hitbox] Not a Hurtbox, ignoring")
 		return
 
 	var hurtbox = area as Hurtbox
-	print("[Hitbox] Detected Hurtbox! My team: ", team, " Hurtbox team: ", hurtbox.team)
 
 	# Don't hit same team
 	if hurtbox.team == team:
-		print("[Hitbox] Same team, ignoring")
 		return
 
 	# Get the owner entity (parent of the hurtbox)
 	var owner_entity = hurtbox.get_parent()
-	print("[Hitbox] Owner entity: ", owner_entity.name if owner_entity else "null")
 
-	# Check if we can hit this entity (for hit_once logic)
-	if not can_hit(owner_entity):
-		print("[Hitbox] Already hit this entity, ignoring")
-		return
-
-	# Register the hit
-	register_hit(owner_entity)
-	print("[Hitbox] Hit registered, emitting hit_detected signal")
-
-	# Emit signal so projectiles/other systems can respond
+	# Emit signal - let the owner decide what to do
 	hit_detected.emit(hurtbox, owner_entity)
 
 
