@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b52oqqpc2t3vc" path="res://MobBase.tscn" id="1_kpjcp"]
 [ext_resource type="Script" uid="uid://dyc75lqjjm73s" path="res://Systems/Player/player_controller.gd" id="1_xhfnw"]
-[ext_resource type="PackedScene" uid="uid://dmav42m3a0vke" path="res://shadow_flame.tscn" id="4_cxr5p"]
+[ext_resource type="PackedScene" uid="uid://dmav42m3a0vke" path="res://Systems/Combat/Spells/Shadow Flame/shadow_flame.tscn" id="4_cxr5p"]
 [ext_resource type="Script" uid="uid://cutcl24p4stoe" path="res://Systems/Combat/hurtbox.gd" id="4_e80uo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxr5p"]

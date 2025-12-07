@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dmav42m3a0vke"]
 
-[ext_resource type="Script" uid="uid://d0x17wyjf67wd" path="res://shadow_flame.gd" id="1_rqhsx"]
+[ext_resource type="Script" uid="uid://d0x17wyjf67wd" path="res://Systems/Combat/Spells/Shadow Flame/shadow_flame.gd" id="1_rqhsx"]
 [ext_resource type="PackedScene" uid="uid://c5bx1lrrw7ofb" path="res://Projectile_Base.tscn" id="2_sy83g"]
 
 [node name="Shadow Flame" type="Node2D"]
