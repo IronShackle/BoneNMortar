@@ -14,7 +14,7 @@ func get_movement_context(_delta: float) -> Dictionary:
 
 func get_action_context(_delta: float) -> Dictionary:
 	return {
-		"cast_primary": Input.is_action_just_pressed("cast_primary"),
+		"cast_primary": Input.is_action_pressed("cast_primary"),  # Changed to is_pressed for hold
 		"dodge_pressed": Input.is_action_just_pressed("dodge")
 	}
 

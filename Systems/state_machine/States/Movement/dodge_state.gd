@@ -19,7 +19,6 @@ func enter() -> void:
 	var movement = mob.get_movement_component()
 	dodge_direction = movement.get_last_direction()
 	
-	print("ENTERED DODGE STATE - direction: %s" % dodge_direction)
 
 
 func update(_delta: float, _context: Dictionary) -> void:

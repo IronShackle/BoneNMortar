@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://conp3ilalt5qc"]
+[gd_scene load_steps=7 format=4 uid="uid://conp3ilalt5qc"]
 
 [ext_resource type="PackedScene" uid="uid://coywexmd4lfyr" path="res://Player.tscn" id="2_e2o6t"]
 [ext_resource type="Texture2D" uid="uid://b8dexmhm3bout" path="res://Game Dev Assets/Pixel Art Top Down - Basic v1.2.2/Texture/TX Tileset Grass.png" id="2_fc0e3"]
-[ext_resource type="PackedScene" uid="uid://sxtr0lvlbdeq" path="res://Basic_Enemy.tscn" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://cpa747p0e18a6" path="res://Systems/Enemy/Enemy Spawner.tscn" id="4_7jktm"]
+[ext_resource type="Script" uid="uid://ct8516bo62i2c" path="res://camera_controller.gd" id="4_fc0e3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eow3j"]
 texture = ExtResource("2_fc0e3")
@@ -277,21 +278,21 @@ tile_set = SubResource("TileSet_j5wjh")
 [node name="Player" parent="." instance=ExtResource("2_e2o6t")]
 
 [node name="MovementComponent" parent="Player" index="2"]
-dodge_distance = 25.0
-dodge_duration = 0.2
+dodge_distance = 15.0
 
 [node name="Shadow Flame" parent="Player" index="4"]
 projectile_max_hits = 2
-movement_modifier = 2.0
+cast_time = 0.1
+movement_modifier = 1.0
 
-[node name="MobBase" parent="." instance=ExtResource("3_feb5d")]
-position = Vector2(178, -83)
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+script = ExtResource("4_fc0e3")
+follow_speed = 3.0
 
-[node name="MobBase2" parent="." instance=ExtResource("3_feb5d")]
-position = Vector2(183, -47)
-
-[node name="MobBase3" parent="." instance=ExtResource("3_feb5d")]
-position = Vector2(129, -50)
+[node name="EnemySpawner" parent="." instance=ExtResource("4_7jktm")]
+position = Vector2(191, -117)
+activation_range = 1.0
+respawn_delay = 1.0
 
 [editable path="Player"]
-[editable path="MobBase"]

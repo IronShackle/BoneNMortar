@@ -9,6 +9,7 @@ class_name SpellBase
 @export var spell_name: String = "Unnamed Spell"
 @export var mana_cost: float = 0.0
 @export var cast_time: float = 0.0
+@export var cooldown: float = 0.5
 @export var movement_modifier: float = 1.0  # 1.0 = normal, 0.5 = slowed, 0.0 = locked
 @export var can_dodge_cancel: bool = true
 

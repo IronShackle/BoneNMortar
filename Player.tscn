@@ -20,11 +20,7 @@ move_speed = 200.0
 position = Vector2(-16, -16)
 polygon = PackedVector2Array(0, 0, 32, 0, 32, 32, 0, 32)
 
-[node name="Camera2D" type="Camera2D" parent="." index="6"]
-zoom = Vector2(2, 2)
-position_smoothing_enabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." index="7"]
+[node name="Hurtbox" type="Area2D" parent="." index="6"]
 script = ExtResource("4_e80uo")
 team = "player"
 metadata/_custom_type_script = "uid://cutcl24p4stoe"

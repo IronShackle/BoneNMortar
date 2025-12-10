@@ -10,9 +10,7 @@ func _init(p_state_machine, p_mob: MobBase) -> void:
 	super(p_state_machine)
 	mob = p_mob
 
-
-func enter() -> void:
-	print("ENTERED IDLE STATE")
+	
 
 
 func update(_delta: float, _context: Dictionary) -> void:

@@ -1,31 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://sxtr0lvlbdeq"]
+[gd_scene load_steps=5 format=3 uid="uid://sxtr0lvlbdeq"]
 
 [ext_resource type="PackedScene" uid="uid://b52oqqpc2t3vc" path="res://MobBase.tscn" id="1_tl2ma"]
-[ext_resource type="Script" uid="uid://k8err0jv3cvy" path="res://Systems/AI/ai_controller.gd" id="2_6a81g"]
-[ext_resource type="Script" uid="uid://dnur5nxixo6tt" path="res://enemy.gd" id="2_eujlb"]
-[ext_resource type="Script" uid="uid://bbiwa645ky3t1" path="res://Systems/AI/Behaviors/chase_player_behavior.gd" id="3_eujlb"]
+[ext_resource type="Script" uid="uid://4yfi77rp8j5d" path="res://Systems/AI/basic_enemy.gd" id="3_6a81g"]
 [ext_resource type="Script" uid="uid://cutcl24p4stoe" path="res://Systems/Combat/hurtbox.gd" id="5_eujlb"]
-
-[sub_resource type="Resource" id="Resource_6a81g"]
-script = ExtResource("3_eujlb")
-metadata/_custom_type_script = "uid://bbiwa645ky3t1"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iqqn0"]
 radius = 12.0
 
 [node name="MobBase" instance=ExtResource("1_tl2ma")]
-script = ExtResource("2_eujlb")
+script = ExtResource("3_6a81g")
+chase_range = 500.0
+leash_range = 800.0
 
-[node name="AIController" type="Node" parent="." index="4"]
-script = ExtResource("2_6a81g")
-ai_behavior = SubResource("Resource_6a81g")
+[node name="MovementComponent" parent="." index="2"]
+move_speed = 60.0
 
-[node name="Polygon2D" type="Polygon2D" parent="." index="5"]
+[node name="Polygon2D" type="Polygon2D" parent="." index="4"]
 scale = Vector2(1.6875001, 2.0555556)
 color = Color(0.7076505, 0.30435848, 0.29918882, 1)
 polygon = PackedVector2Array(-4, 2, 0, -4, 4, 2)
 
-[node name="Hurtbox" type="Area2D" parent="." index="6"]
+[node name="Hurtbox" type="Area2D" parent="." index="5"]
 script = ExtResource("5_eujlb")
 team = "enemy"
 metadata/_custom_type_script = "uid://cutcl24p4stoe"

@@ -11,8 +11,6 @@ func _init(p_state_machine, p_mob: MobBase) -> void:
 	mob = p_mob
 
 
-func enter() -> void:
-	print("ENTERED RUN STATE")
 
 
 func update(delta: float, context: Dictionary) -> void:

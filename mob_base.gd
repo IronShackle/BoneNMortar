@@ -9,6 +9,7 @@ class_name MobBase
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var hurtbox: Hurtbox = $Hurtbox
 
+signal died
 
 
 func _ready() -> void:
@@ -79,4 +80,5 @@ func get_health_component() -> HealthComponent:
 # Virtual method called when entity dies
 # Subclasses can override for custom death behavior
 func _on_death() -> void:
+	died.emit()
 	queue_free()
