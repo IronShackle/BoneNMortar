@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://pjfkkqhpxtls"]
+
+[ext_resource type="Script" uid="uid://fdsox48lsnci" path="res://Systems/Interactable Objects/Altars/altar_base.gd" id="1_ac6ho"]
+[ext_resource type="Script" uid="uid://ctm1u0v86emdr" path="res://Systems/Interactable Objects/Altars/Altar Effects/print_effect.gd" id="2_lsi3i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lsi3i"]
+radius = 28.0
+
+[node name="AltarBase" type="Area2D"]
+script = ExtResource("1_ac6ho")
+metadata/_custom_type_script = "uid://fdsox48lsnci"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lsi3i")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(2.3841858e-07, 0)
+scale = Vector2(1.75, 3.5)
+polygon = PackedVector2Array(-2, -2, 2, -2, 4, 0, 2, 2, -2, 2, -4, 0)
+
+[node name="PrintEffect" type="Node" parent="."]
+script = ExtResource("2_lsi3i")
+metadata/_custom_type_script = "uid://ctm1u0v86emdr"

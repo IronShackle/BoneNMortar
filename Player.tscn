@@ -1,12 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://coywexmd4lfyr"]
+[gd_scene load_steps=9 format=3 uid="uid://coywexmd4lfyr"]
 
 [ext_resource type="PackedScene" uid="uid://b52oqqpc2t3vc" path="res://MobBase.tscn" id="1_kpjcp"]
 [ext_resource type="Script" uid="uid://dyc75lqjjm73s" path="res://Systems/Player/player_controller.gd" id="1_xhfnw"]
 [ext_resource type="PackedScene" uid="uid://dmav42m3a0vke" path="res://Systems/Combat/Spells/Shadow Flame/shadow_flame.tscn" id="4_cxr5p"]
 [ext_resource type="Script" uid="uid://cutcl24p4stoe" path="res://Systems/Combat/hurtbox.gd" id="4_e80uo"]
+[ext_resource type="Script" uid="uid://d6noo7hwyi6o" path="res://inventory.gd" id="5_cxr5p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxr5p"]
 radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tdg3f"]
+radius = 24.083189
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dtqjt"]
+radius = 55.0
 
 [node name="MobBase" groups=["player"] instance=ExtResource("1_kpjcp")]
 script = ExtResource("1_xhfnw")
@@ -20,10 +27,21 @@ move_speed = 200.0
 position = Vector2(-16, -16)
 polygon = PackedVector2Array(0, 0, 32, 0, 32, 32, 0, 32)
 
-[node name="Hurtbox" type="Area2D" parent="." index="6"]
+[node name="Hurtbox" type="Area2D" parent="." index="6" groups=["player"]]
 script = ExtResource("4_e80uo")
 team = "player"
 metadata/_custom_type_script = "uid://cutcl24p4stoe"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0" groups=["player"]]
 shape = SubResource("CircleShape2D_cxr5p")
+
+[node name="Inventory" type="Node" parent="." index="7"]
+script = ExtResource("5_cxr5p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
+shape = SubResource("CircleShape2D_tdg3f")
+
+[node name="InteractionZone" type="Area2D" parent="." index="9"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone" index="0"]
+shape = SubResource("CircleShape2D_dtqjt")

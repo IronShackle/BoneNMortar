@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://doxs77cpqttet"]
+
+[ext_resource type="Script" uid="uid://b303ufsby0kgn" path="res://Systems/Pickups/soul_pickup.gd" id="1_v8vlv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5m2gj"]
+
+[node name="SoulPickup" type="Area2D"]
+script = ExtResource("1_v8vlv")
+metadata/_custom_type_script = "uid://b303ufsby0kgn"
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(0, 3)
+color = Color(0.44313726, 0.70980394, 0.9490196, 0.5686275)
+polygon = PackedVector2Array(-10, -3, 0, 7, 10, -3, 0, -13)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5m2gj")

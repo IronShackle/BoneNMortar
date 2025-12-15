@@ -7,11 +7,11 @@ enum AIState { ROAMING, CHASING, RETURNING }
 @export var chase_range: float = 200.0
 @export var disengage_range: float = 400.0
 @export var roam_radius: float = 100.0
+@export var soul_pickup_scene: PackedScene  # Assign SoulPickup scene here
 
 var spawn_position: Vector2
 var ai_state: AIState = AIState.ROAMING
 
-# Roaming behavior
 var roam_timer: float = 0.0
 var roam_wait_time: float = 2.0
 var roam_direction: Vector2 = Vector2.ZERO
@@ -66,18 +66,15 @@ func _update_roaming(delta: float) -> void:
 	
 	var from_spawn = global_position.distance_to(spawn_position)
 	
-	# If outside roam radius, move back toward spawn
 	if from_spawn > roam_radius:
 		roam_direction = (spawn_position - global_position).normalized()
 		return
 	
-	# Otherwise, pick random directions occasionally
 	roam_timer -= delta
 	
 	if roam_timer <= 0.0:
 		roam_timer = roam_wait_time
 		
-		# 50% chance to stand still, 50% chance to pick new direction
 		if randf() > 0.5:
 			roam_direction = Vector2.ZERO
 		else:
@@ -120,3 +117,18 @@ func _setup_action_machine() -> void:
 	
 	action_machine.set_initial_state("ActionIdle")
 	action_machine.start()
+
+
+func _on_death() -> void:
+	call_deferred("_spawn_soul_pickup")
+	died.emit()
+	queue_free()
+
+
+func _spawn_soul_pickup() -> void:
+	if soul_pickup_scene == null:
+		return
+	
+	var pickup = soul_pickup_scene.instantiate()
+	pickup.global_position = global_position
+	get_tree().current_scene.add_child(pickup)

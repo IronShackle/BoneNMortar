@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://sxtr0lvlbdeq"]
+[gd_scene load_steps=6 format=3 uid="uid://sxtr0lvlbdeq"]
 
 [ext_resource type="PackedScene" uid="uid://b52oqqpc2t3vc" path="res://MobBase.tscn" id="1_tl2ma"]
 [ext_resource type="Script" uid="uid://4yfi77rp8j5d" path="res://Systems/AI/basic_enemy.gd" id="3_6a81g"]
+[ext_resource type="PackedScene" uid="uid://doxs77cpqttet" path="res://SoulPickup.tscn" id="3_eujlb"]
 [ext_resource type="Script" uid="uid://cutcl24p4stoe" path="res://Systems/Combat/hurtbox.gd" id="5_eujlb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iqqn0"]
@@ -10,7 +11,9 @@ radius = 12.0
 [node name="MobBase" instance=ExtResource("1_tl2ma")]
 script = ExtResource("3_6a81g")
 chase_range = 500.0
-leash_range = 800.0
+disengage_range = 400.0
+roam_radius = 100.0
+soul_pickup_scene = ExtResource("3_eujlb")
 
 [node name="MovementComponent" parent="." index="2"]
 move_speed = 60.0

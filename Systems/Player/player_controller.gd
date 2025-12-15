@@ -3,7 +3,10 @@ extends MobBase
 
 
 var spell_manager: SpellManager
+@onready var interaction_zone: Area2D = $InteractionZone
 
+func _process(_delta: float) -> void:
+	_check_interaction_input()
 
 func get_movement_context(_delta: float) -> Dictionary:
 	return {
@@ -65,3 +68,28 @@ func has_mana(_cost: float) -> bool:
 
 func consume_mana(_cost: float) -> void:
 	pass
+
+func _check_interaction_input() -> void:
+	if Input.is_action_just_pressed("interact"):
+		_try_interact()
+
+
+func _try_interact() -> void:
+	var interactable = _get_nearby_interactable()
+	
+	if interactable and interactable.can_interact():
+		interactable.interact(self)
+
+
+func _get_nearby_interactable() -> Interactable:
+	if not interaction_zone:
+		return null
+	
+	var overlapping_areas = interaction_zone.get_overlapping_areas()
+	
+	# Return first interactable found
+	for area in overlapping_areas:
+		if area is Interactable:
+			return area
+	
+	return null
