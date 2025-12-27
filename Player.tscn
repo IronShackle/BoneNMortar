@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://coywexmd4lfyr"]
+[gd_scene load_steps=11 format=3 uid="uid://coywexmd4lfyr"]
 
 [ext_resource type="PackedScene" uid="uid://b52oqqpc2t3vc" path="res://MobBase.tscn" id="1_kpjcp"]
 [ext_resource type="Script" uid="uid://dyc75lqjjm73s" path="res://Systems/Player/player_controller.gd" id="1_xhfnw"]
 [ext_resource type="PackedScene" uid="uid://dmav42m3a0vke" path="res://Systems/Combat/Spells/Shadow Flame/shadow_flame.tscn" id="4_cxr5p"]
 [ext_resource type="Script" uid="uid://cutcl24p4stoe" path="res://Systems/Combat/hurtbox.gd" id="4_e80uo"]
 [ext_resource type="Script" uid="uid://d6noo7hwyi6o" path="res://inventory.gd" id="5_cxr5p"]
+[ext_resource type="Script" uid="uid://cx5dm8opg0116" path="res://Systems/Combat/Attacks/test attacks/test_attack_1.gd" id="6_5ncpa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxr5p"]
 radius = 15.0
@@ -15,11 +16,19 @@ radius = 24.083189
 [sub_resource type="CircleShape2D" id="CircleShape2D_dtqjt"]
 radius = 55.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ncpa"]
+radius = 16.03122
+
 [node name="MobBase" groups=["player"] instance=ExtResource("1_kpjcp")]
 script = ExtResource("1_xhfnw")
 
 [node name="MovementComponent" parent="." index="2"]
-move_speed = 200.0
+max_speed = 250.0
+acceleration_rate = 15000.0
+deceleration_rate = 25.0
+snap_impulse = 1500.0
+dodge_distance = 200.0
+dodge_duration = 0.2
 
 [node name="Shadow Flame" parent="." index="4" instance=ExtResource("4_cxr5p")]
 
@@ -45,3 +54,14 @@ shape = SubResource("CircleShape2D_tdg3f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone" index="0"]
 shape = SubResource("CircleShape2D_dtqjt")
+
+[node name="Attacks" type="Node" parent="." index="10"]
+
+[node name="TestAttack1" type="Node" parent="Attacks" index="0"]
+script = ExtResource("6_5ncpa")
+knockback_force = 400.0
+hitbox_radius = 65.0
+lunge_distance = 200.0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." index="11"]
+shape = SubResource("CircleShape2D_5ncpa")

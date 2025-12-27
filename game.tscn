@@ -278,14 +278,6 @@ tile_set = SubResource("TileSet_j5wjh")
 
 [node name="Player" parent="." instance=ExtResource("2_e2o6t")]
 
-[node name="MovementComponent" parent="Player" index="2"]
-dodge_distance = 15.0
-
-[node name="Shadow Flame" parent="Player" index="4"]
-projectile_max_hits = 5
-cast_time = 0.1
-movement_modifier = 1.0
-
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 script = ExtResource("4_fc0e3")
@@ -297,5 +289,3 @@ respawn_delay = 1.0
 
 [node name="AltarBase" parent="." instance=ExtResource("5_7jktm")]
 position = Vector2(-117, 80)
-
-[editable path="Player"]

@@ -1,12 +1,16 @@
-# player/player_controller.gd
+# Systems/Player/player_controller.gd
 extends MobBase
 
 
 var spell_manager: SpellManager
+var combo_manager: ComboManager
+
 @onready var interaction_zone: Area2D = $InteractionZone
+
 
 func _process(_delta: float) -> void:
 	_check_interaction_input()
+
 
 func get_movement_context(_delta: float) -> Dictionary:
 	return {
@@ -17,13 +21,17 @@ func get_movement_context(_delta: float) -> Dictionary:
 
 func get_action_context(_delta: float) -> Dictionary:
 	return {
-		"cast_primary": Input.is_action_pressed("cast_primary"),  # Changed to is_pressed for hold
+		"attack_pressed": Input.is_action_just_pressed("attack"),
+		"cast_primary": Input.is_action_pressed("cast_primary"),
 		"dodge_pressed": Input.is_action_just_pressed("dodge")
 	}
 
 
 func _setup_mob_specific() -> void:
 	spell_manager = SpellManager.new(self)
+	combo_manager = ComboManager.new(self)
+	add_child(combo_manager)
+	
 	movement_machine.state_changed.connect(_on_movement_state_changed)
 
 
@@ -43,9 +51,11 @@ func _setup_movement_machine() -> void:
 func _setup_action_machine() -> void:
 	var action_idle = ActionIdleState.new(action_machine, self)
 	var action_casting = ActionCastingState.new(action_machine, self)
+	var action_attacking = ActionAttackingState.new(action_machine, self)
 	
 	action_machine.add_state("ActionIdle", action_idle)
 	action_machine.add_state("Casting", action_casting)
+	action_machine.add_state("Attacking", action_attacking)
 	
 	action_machine.set_initial_state("ActionIdle")
 	action_machine.start()
@@ -54,12 +64,18 @@ func _setup_action_machine() -> void:
 func _on_movement_state_changed(old_state: String, new_state: String) -> void:
 	if new_state == "Dodge":
 		action_machine.set_transition_rule("ActionIdle", "Casting", false)
+		action_machine.set_transition_rule("ActionIdle", "Attacking", false)
 	elif old_state == "Dodge":
 		action_machine.set_transition_rule("ActionIdle", "Casting", true)
+		action_machine.set_transition_rule("ActionIdle", "Attacking", true)
 
 
 func get_spell_manager() -> SpellManager:
 	return spell_manager
+
+
+func get_combo_manager() -> ComboManager:
+	return combo_manager
 
 
 func has_mana(_cost: float) -> bool:
@@ -68,6 +84,7 @@ func has_mana(_cost: float) -> bool:
 
 func consume_mana(_cost: float) -> void:
 	pass
+
 
 func _check_interaction_input() -> void:
 	if Input.is_action_just_pressed("interact"):
@@ -87,7 +104,6 @@ func _get_nearby_interactable() -> Interactable:
 	
 	var overlapping_areas = interaction_zone.get_overlapping_areas()
 	
-	# Return first interactable found
 	for area in overlapping_areas:
 		if area is Interactable:
 			return area

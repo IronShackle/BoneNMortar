@@ -1,4 +1,4 @@
-# systems/state_machine/states/action/action_idle_state.gd
+# Systems/state_machine/States/Action/action_idle_state.gd
 class_name ActionIdleState
 extends State
 
@@ -12,8 +12,16 @@ func _init(p_state_machine, p_mob: MobBase) -> void:
 
 
 func get_transition(context: Dictionary) -> String:
+	# Check for attack input
+	if context.get("attack_pressed", false):
+		if mob.has_method("get_combo_manager"):
+			var combo_manager = mob.get_combo_manager()
+			
+			if combo_manager and combo_manager.try_attack():
+				return "Attacking"
+	
+	# Legacy spell casting support
 	if context.get("cast_primary", false):
-		# Only players have spell manager
 		if mob.has_method("get_spell_manager"):
 			var spell_manager = mob.get_spell_manager()
 			var spell = spell_manager.get_primary_spell()

@@ -19,4 +19,4 @@ func _physics_process(delta: float) -> void:  # Changed from _process
 	if not target:
 		return
 	
-	global_position = global_position.lerp(target.global_position, follow_speed * delta)
+	global_position = global_position.lerp(target.global_position, follow_speed * delta) 
