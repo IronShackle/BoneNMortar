@@ -1,7 +1,7 @@
-# spells/bone_splinters.gd
-extends SpellBase
+# Systems/Combat/Abilities/Bone Splinters/bone_splinters.gd
+extends AbilityBase
 
-## Close-range cone AoE spell that shotguns shrapnel
+## Close-range cone AoE ability that shotguns shrapnel
 
 
 @export_group("Bone Splinters Properties")
@@ -11,8 +11,8 @@ extends SpellBase
 
 
 func _ready() -> void:
-	# Set spell properties
-	spell_name = "Bone Splinters"
+	# Set ability properties
+	ability_name = "Bone Splinters"
 	mana_cost = 10.0
 	cast_time = 0.2
 	movement_modifier = 0.7

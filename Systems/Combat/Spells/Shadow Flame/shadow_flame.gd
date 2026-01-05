@@ -1,5 +1,5 @@
-# spells/shadow_flame.gd
-extends SpellBase
+# Systems/Combat/Abilities/Shadow Flame/shadow_flame.gd
+extends AbilityBase
 
 ## Shoots a single projectile toward cursor
 
@@ -13,7 +13,7 @@ extends SpellBase
 
 
 func _init() -> void:
-	spell_name = "Shadow Flame"
+	ability_name = "Shadow Flame"
 	mana_cost = 15.0
 	cast_time = 0.1
 	movement_modifier = 1.0

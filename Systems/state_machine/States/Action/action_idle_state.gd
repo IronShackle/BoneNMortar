@@ -20,16 +20,25 @@ func get_transition(context: Dictionary) -> String:
 			if combo_manager and combo_manager.try_attack():
 				return "Attacking"
 	
-	# Legacy spell casting support
-	if context.get("cast_primary", false):
-		if mob.has_method("get_spell_manager"):
-			var spell_manager = mob.get_spell_manager()
-			var spell = spell_manager.get_primary_spell()
+	# Check for ability execution (used by enemies)
+	if context.get("execute_ability", false):
+		if mob.has_method("get_ability_manager"):
+			var ability_manager = mob.get_ability_manager()
+			var ability = ability_manager.get_primary_ability()
 			
-			if spell and spell_manager.can_cast(spell):
+			if ability:
+				return "ExecutingAbility"
+	
+	# Legacy ability casting support (player spells)
+	if context.get("cast_primary", false):
+		if mob.has_method("get_ability_manager"):
+			var ability_manager = mob.get_ability_manager()
+			var ability = ability_manager.get_primary_ability()
+			
+			if ability and ability_manager.can_cast(ability):
 				var casting_state = state_machine.states.get("Casting")
 				if casting_state:
-					casting_state.set_spell(spell)
+					casting_state.set_ability(ability)
 					return "Casting"
 	
 	return ""

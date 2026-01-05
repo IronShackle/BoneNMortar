@@ -2,7 +2,7 @@
 extends MobBase
 
 
-var spell_manager: SpellManager
+var ability_manager: AbilityManager
 var combo_manager: ComboManager
 
 @onready var interaction_zone: Area2D = $InteractionZone
@@ -28,7 +28,7 @@ func get_action_context(_delta: float) -> Dictionary:
 
 
 func _setup_mob_specific() -> void:
-	spell_manager = SpellManager.new(self)
+	ability_manager = AbilityManager.new(self)
 	combo_manager = ComboManager.new(self)
 	add_child(combo_manager)
 	
@@ -70,8 +70,8 @@ func _on_movement_state_changed(old_state: String, new_state: String) -> void:
 		action_machine.set_transition_rule("ActionIdle", "Attacking", true)
 
 
-func get_spell_manager() -> SpellManager:
-	return spell_manager
+func get_ability_manager() -> AbilityManager:
+	return ability_manager
 
 
 func get_combo_manager() -> ComboManager:

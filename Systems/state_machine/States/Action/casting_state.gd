@@ -3,7 +3,7 @@ class_name ActionCastingState
 extends State
 
 
-var current_spell: SpellBase = null
+var current_spell: AbilityBase = null
 var elapsed_time: float = 0.0
 var cooldown_timer: float = 0.0
 var mob: MobBase
@@ -86,5 +86,5 @@ func get_transition(context: Dictionary) -> String:
 	return ""
 
 
-func set_spell(spell: SpellBase) -> void:
+func set_spell(spell: AbilityBase) -> void:
 	current_spell = spell
