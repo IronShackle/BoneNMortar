@@ -23,7 +23,9 @@ func get_action_context(_delta: float) -> Dictionary:
 	return {
 		"attack_pressed": Input.is_action_just_pressed("attack"),
 		"cast_primary": Input.is_action_pressed("cast_primary"),
-		"dodge_pressed": Input.is_action_just_pressed("dodge")
+		"dodge_pressed": Input.is_action_just_pressed("dodge"),
+		"parry_pressed": Input.is_action_just_pressed("parry"),
+		"parry_held": Input.is_action_pressed("parry")
 	}
 
 
@@ -52,10 +54,12 @@ func _setup_action_machine() -> void:
 	var action_idle = ActionIdleState.new(action_machine, self)
 	var action_casting = ActionCastingState.new(action_machine, self)
 	var action_attacking = ActionAttackingState.new(action_machine, self)
+	var parry_state = ParryState.new(action_machine, self)
 	
 	action_machine.add_state("ActionIdle", action_idle)
 	action_machine.add_state("Casting", action_casting)
 	action_machine.add_state("Attacking", action_attacking)
+	action_machine.add_state("Parrying", parry_state)
 	
 	action_machine.set_initial_state("ActionIdle")
 	action_machine.start()

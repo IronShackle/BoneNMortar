@@ -12,6 +12,10 @@ func _init(p_state_machine, p_mob: MobBase) -> void:
 
 
 func get_transition(context: Dictionary) -> String:
+
+	if context.get("parry_pressed", false):
+		return "Parrying"
+
 	# Check for attack input
 	if context.get("attack_pressed", false):
 		if mob.has_method("get_combo_manager"):

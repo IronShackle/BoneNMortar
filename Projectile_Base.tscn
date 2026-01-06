@@ -1,9 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5bx1lrrw7ofb"]
+[gd_scene load_steps=5 format=3 uid="uid://c5bx1lrrw7ofb"]
 
 [ext_resource type="Script" uid="uid://caiugvlu8ulxq" path="res://projectile.gd" id="1_if21u"]
 [ext_resource type="Script" uid="uid://sdavka6ppoe" path="res://Systems/Combat/hitbox.gd" id="2_ey5qg"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8to4u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ey5qg"]
+radius = 5.0
 
 [node name="ProjectileBase" type="Node2D"]
 script = ExtResource("1_if21u")
@@ -17,3 +20,4 @@ script = ExtResource("2_ey5qg")
 metadata/_custom_type_script = "uid://sdavka6ppoe"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_ey5qg")

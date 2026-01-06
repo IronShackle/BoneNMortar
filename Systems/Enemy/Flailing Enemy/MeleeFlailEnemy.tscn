@@ -32,6 +32,9 @@ soul_pickup_scene = null
 [node name="MovementComponent" parent="." index="2"]
 max_speed = 120.0
 
+[node name="HealthComponent" parent="." index="3"]
+max_health = 5.0
+
 [node name="Polygon2D" type="Polygon2D" parent="." index="4"]
 position = Vector2(0, 3)
 scale = Vector2(1.9687501, 2.642857)
